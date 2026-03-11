@@ -129,3 +129,30 @@ body{
   font-size:16px;
   width:20px;
 }
+
+@keyframes toastSlideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.toast{
+  animation: toastSlideDown 0.3s ease;
+}
+
+.contact-input{
+  @apply px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-sm outline-none transition;
+}
+
+.contact-input:focus{
+  @apply border-blue-400 bg-white/15;
+}
+
+.contact-btn{
+  @apply px-4 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 transition text-white font-medium;
+}

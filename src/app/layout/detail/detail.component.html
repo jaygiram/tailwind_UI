@@ -1,8 +1,7 @@
 <div class="h-full backdrop-blur-xl bg-white/1 border border-white/20 rounded-2xl p-6 text-white shadow-2xl shadow-black/30 overflow-y-auto">
 
   <div *ngIf="!state.selectedItem()" class="opacity-70">
-    Select a project to view details.
-  </div>
+    </div>
 
 
   <div *ngIf="state.selectedItem()" class="flex flex-col gap-6">
@@ -123,4 +122,50 @@
 
   </div>
 
+  <div *ngIf="state.selectedSection() === 'contact'" class="fade-section">
+
+    <h2 class="text-lg font-semibold mb-4">
+      Send a Message
+    </h2>
+  
+    <!-- CONTACT FORM -->
+    <form action="https://api.web3forms.com/submit" method="POST" class="flex flex-col gap-4">
+  
+      <input type="hidden" name="access_key" value="67d0c720-af72-45aa-8bdd-ad341c6211ae">
+  
+      <input
+        type="text"
+        name="name"
+        placeholder="Your Name"
+        required
+        class="contact-input"
+      >
+  
+      <input
+        type="email"
+        name="email"
+        placeholder="Your Email"
+        required
+        class="contact-input"
+      >
+  
+      <textarea
+        name="message"
+        placeholder="Your Message"
+        rows="4"
+        required
+        class="contact-input"
+      ></textarea>
+
+      <input type="checkbox" name="botcheck" class="hidden">
+
+      <button
+        type="submit"
+        class="contact-btn">
+        Send Message
+      </button>
+  
+    </form>
+  
+  </div>
 </div>

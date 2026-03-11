@@ -129,93 +129,80 @@
   <div *ngIf="state.selectedSection() === 'projects'">
 
     <!-- FILTER BUTTONS -->
-  
+
     <div class="flex gap-2 mb-4">
-  
-      <button
-        (click)="selectedFilter='All'"
-        class="filter-btn"
+
+      <button (click)="selectedFilter='All'" class="filter-btn"
         [ngClass]="selectedFilter === 'All' ? 'active-filter' : ''">
         All
       </button>
-  
-      <button
-        (click)="selectedFilter='Angular'"
-        class="filter-btn"
+
+      <button (click)="selectedFilter='Angular'" class="filter-btn"
         [ngClass]="selectedFilter === 'Angular' ? 'active-filter' : ''">
         Angular
       </button>
-  
-      <button
-        (click)="selectedFilter='Mendix'"
-        class="filter-btn"
+
+      <button (click)="selectedFilter='Mendix'" class="filter-btn"
         [ngClass]="selectedFilter === 'Mendix' ? 'active-filter' : ''">
         Mendix
       </button>
-  
-      <button
-        (click)="selectedFilter='UI/UX'"
-        class="filter-btn"
+
+      <button (click)="selectedFilter='UI/UX'" class="filter-btn"
         [ngClass]="selectedFilter === 'UI/UX' ? 'active-filter' : ''">
         UI/UX
       </button>
-  
+
     </div>
-  
+
     <!-- PROJECT GRID -->
-  
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-  
-      <div
-        *ngFor="let project of filteredProjects"
-        (click)="openProject(project)"
+
+      <div *ngFor="let project of filteredProjects" (click)="openProject(project)"
         class="group rounded-xl overflow-hidden border cursor-pointer transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-1"
         [ngClass]="
           state.selectedItem()?.id === project.id
             ? 'bg-white/20 border-blue-400'
             : 'bg-white/10 border-white/20 hover:bg-white/20'
         ">
-  
+
         <!-- IMAGE -->
-  
+
         <div class="relative overflow-hidden rounded-t-xl group">
-          <img
-            [src]="project.image"
-            class="w-full h-32 object-cover transition-transform duration-500 group-hover:scale-110"
-          />
+          <img [src]="project.image"
+            class="w-full h-32 object-cover transition-transform duration-500 group-hover:scale-110" />
           <div class="shine"></div>
         </div>
-  
+
         <!-- CONTENT -->
-  
+
         <div class="p-4">
-  
+
           <h3 class="text-lg font-semibold">
             {{ project.title }}
           </h3>
-  
+
           <p class="text-sm opacity-80 mb-3">
             {{ project.description }}
           </p>
-  
+
           <!-- TECH BADGES -->
-  
+
           <div class="flex flex-wrap gap-2 mt-2">
-  
-            <span
-              *ngFor="let tech of project.tech"
+
+            <span *ngFor="let tech of project.tech"
               class="px-2 py-1 text-xs rounded-md bg-white/20 border border-white/30 text-white">
               {{ tech }}
             </span>
-  
+
           </div>
-  
+
         </div>
-  
+
       </div>
-  
+
     </div>
-  
+
   </div>
 
   <!-- BLOGS SECTION -->
@@ -229,63 +216,51 @@
   <div *ngIf="state.selectedSection() === 'contact'" class="fade-section">
 
     <div class="flex flex-col gap-4 mt-2">
-  
+
       <!-- Email -->
-      <div class="contact-item cursor-pointer"
-           (click)="copyToClipboard('jaysudhirgiram@email.com')">
+      <div class="contact-item cursor-pointer" (click)="copyToClipboard('jaysudhirgiram@email.com','Email')">
         <i class="fa-solid fa-envelope"></i>
         Email
         <span class="ml-auto text-xs opacity-60">click to copy</span>
       </div>
-  
-      <!-- LinkedIn -->
-      <a href="https://www.linkedin.com/in/jaygiram08"
-         target="_blank"
-         class="contact-item">
-        <i class="fa-brands fa-linkedin"></i>
-        LinkedIn
-      </a>
-  
-      <!-- GitHub -->
-      <a href="https://github.com/jaygiram"
-         target="_blank"
-         class="contact-item">
-        <i class="fa-brands fa-github"></i>
-        GitHub
-      </a>
-  
-      <!-- Instagram -->
-      <a href="https://www.instagram.com/jay_giram/"
-         target="_blank"
-         class="contact-item">
-        <i class="fa-brands fa-instagram"></i>
-        Instagram
-      </a>
-  
-      <!-- Figma -->
-      <a href="https://www.figma.com/@jaygiram"
-         target="_blank"
-         class="contact-item">
-        <i class="fa-brands fa-figma"></i>
-        Figma
-      </a>
-  
-      <!-- Pinterest -->
-      <a href="https://pin.it/7iPaHZRUU"
-         target="_blank"
-         class="contact-item">
-        <i class="fa-brands fa-pinterest"></i>
-        Pinterest
-      </a>
-  
+
       <!-- Phone -->
-      <div class="contact-item cursor-pointer"
-           (click)="copyToClipboard('+919637102111')">
+      <div class="contact-item cursor-pointer"(click)="copyToClipboard('+919637102111','Phone')">
         <i class="fa-solid fa-phone"></i>
         Phone
         <span class="ml-auto text-xs opacity-60">click to copy</span>
       </div>
-  
-    </div>
-  
+
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/jaygiram08" target="_blank" class="contact-item">
+        <i class="fa-brands fa-linkedin"></i>
+        LinkedIn
+      </a>
+
+      <!-- GitHub -->
+      <a href="https://github.com/jaygiram" target="_blank" class="contact-item">
+        <i class="fa-brands fa-github"></i>
+        GitHub
+      </a>
+
+         <!-- Figma -->
+         <a href="https://www.figma.com/@jaygiram" target="_blank" class="contact-item">
+          <i class="fa-brands fa-figma"></i>
+          Figma
+        </a>
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/jay_giram/" target="_blank" class="contact-item">
+        <i class="fa-brands fa-instagram"></i>
+        Instagram
+      </a>
+
+   
+
+      <!-- Pinterest -->
+      <a href="https://pin.it/7iPaHZRUU" target="_blank" class="contact-item">
+        <i class="fa-brands fa-pinterest"></i>
+        Pinterest
+      </a>
+
   </div>

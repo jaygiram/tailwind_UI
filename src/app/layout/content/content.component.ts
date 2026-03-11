@@ -13,6 +13,8 @@ export class ContentComponent implements OnInit {
 
   projects = PROJECTS;
   searchText = "";
+  copied = false;
+  copyMessage = '';
   constructor(public state: PortfolioStateService) {}
 
   openProject(project: any) {
@@ -110,8 +112,18 @@ export class ContentComponent implements OnInit {
     }
 
   }
-  copyToClipboard(text: string) {
+
+
+  copyToClipboard(text: string, label: string) {
+
     navigator.clipboard.writeText(text);
-    alert("Copied to clipboard!");
+  
+    this.copyMessage = `${label} copied`;
+    this.copied = true;
+  
+    setTimeout(() => {
+      this.copied = false;
+    }, 2000);
+  
   }
 }
