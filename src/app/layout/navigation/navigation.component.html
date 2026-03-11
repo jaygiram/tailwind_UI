@@ -1,0 +1,60 @@
+<div
+  class="h-full p-6 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl shadow-black/30 text-white">
+
+  <h1 class="text-xl font-bold mb-8">
+    Hi I'm Jay
+  </h1>
+
+  <ul class="space-y-3">
+    <li
+    (click)="select('home')"
+    class="cursor-pointer flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition"
+    [ngClass]="{ 'bg-white/20 text-blue-400': state.selectedSection() === 'home' }"
+    >
+    <i class="fa-solid fa-house"></i>
+    Home
+    </li>
+
+    <li
+    (click)="select('profile')"
+    class="cursor-pointer flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition"
+    [ngClass]="{ 'bg-white/20 text-blue-400': state.selectedSection() === 'profile' }"
+    >
+    <i class="fa-solid fa-user"></i>
+    Profile
+    </li>
+
+    <li
+    (click)="select('projects')"
+    class="cursor-pointer flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition"
+    [ngClass]="{ 'bg-white/20 text-blue-400': state.selectedSection() === 'projects' }"
+    >
+    <i class="fa-solid fa-diagram-project"></i>
+    Projects
+    </li>
+
+    
+    <li
+    (click)="select('blogs')"
+    class="cursor-pointer flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition"
+    [ngClass]="{ 'bg-white/20 text-blue-400': state.selectedSection() === 'blogs' }"
+    >
+    <i class="fa-solid fa-pen"></i>
+    Blogs
+    </li>
+
+    
+    <li
+    (click)="select('contact')"
+    class="cursor-pointer flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition"
+    [ngClass]="{ 'bg-white/20 text-blue-400': state.selectedSection() === 'contact' }"
+    >
+    <i class="fa-solid fa-envelope"></i>
+    Contact
+    </li>
+
+ 
+
+  </ul>
+
+</div>

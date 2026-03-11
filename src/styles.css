@@ -1,0 +1,131 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  margin:0;
+  height:100vh;
+
+  background-image: url('/assets/background/scene.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  font-family: system-ui, sans-serif;
+}
+
+.fade-section{
+  animation: fadeSection 0.35s ease;
+}
+
+@keyframes fadeSection{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity:1 }
+  50% { opacity:0 }
+}
+
+.skill-card{
+  @apply flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-sm cursor-pointer transition-all duration-300;
+}
+
+.skill-card:hover{
+  @apply bg-white/20 shadow-lg shadow-blue-500/20 -translate-y-0.5;
+}
+.skill-card{
+  @apply flex items-center gap-2 px-3 py-2 rounded-lg 
+  bg-white/10 border border-white/20 text-sm 
+  cursor-pointer transition-all duration-300;
+}
+
+.skill-card:hover{
+  @apply bg-white/20 shadow-lg shadow-blue-500/20 -translate-y-0.5;
+}
+
+.skill-card i,
+.skill-card img{
+  @apply w-4 h-4;
+}
+
+.shine{
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:50%;
+  height:100%;
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.3),
+    transparent
+  );
+  transform:skewX(-25deg);
+}
+
+.group:hover .shine{
+  animation:shineMove 0.8s forwards;
+}
+
+@keyframes shineMove{
+  100%{
+    left:150%;
+  }
+}
+
+.tech-badge{
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.2);
+  display:inline-block;
+  transition:all .25s ease;
+}
+
+.tech-badge:hover{
+  background:rgba(255,255,255,0.18);
+  transform:translateY(-1px);
+}
+.filter-btn{
+  padding:6px 12px;
+  font-size:12px;
+  border-radius:8px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.2);
+  transition:all .25s ease;
+}
+
+.filter-btn:hover{
+  background:rgba(255,255,255,0.18);
+}
+
+.active-filter{
+  background:rgba(255,255,255,0.25);
+  border:1px solid rgba(255,255,255,0.4);
+}
+.contact-item{
+  @apply flex items-center gap-3 px-4 py-3 rounded-xl 
+  bg-white/10 border border-white/20 
+  hover:bg-white/20 transition-all duration-300;
+}
+
+.contact-item:hover{
+  @apply shadow-lg shadow-blue-500/20 -translate-y-0.5;
+}
+
+.contact-item i{
+  font-size:16px;
+  width:20px;
+}

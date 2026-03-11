@@ -1,0 +1,126 @@
+<div class="h-full backdrop-blur-xl bg-white/1 border border-white/20 rounded-2xl p-6 text-white shadow-2xl shadow-black/30 overflow-y-auto">
+
+  <div *ngIf="!state.selectedItem()" class="opacity-70">
+    Select a project to view details.
+  </div>
+
+
+  <div *ngIf="state.selectedItem()" class="flex flex-col gap-6">
+
+    <!-- HERO IMAGE -->
+    <div class="rounded-xl overflow-hidden">
+
+      <img
+        [src]="state.selectedItem().image"
+        class="w-full h-48 object-cover"
+      />
+
+    </div>
+
+    <!-- SCREENSHOT CAROUSEL -->
+    <div *ngIf="state.selectedItem()?.screenshots" class="mt-4 relative group">
+
+
+      <img
+        [src]="state.selectedItem()?.screenshots[currentShot]"
+        class="w-full rounded-xl border border-white/20 transition-all duration-500"
+      />
+    
+      <!-- LEFT BUTTON -->
+    
+      <button
+        (click)="prevShot(state.selectedItem())"
+        class="absolute left-3 top-1/2 -translate-y-1/2
+               bg-black/40 backdrop-blur px-3 py-1 rounded-lg
+               hover:bg-black/60 transition"
+      >
+        ‹
+      </button>
+    
+      <!-- RIGHT BUTTON -->
+    
+      <button
+        (click)="nextShot(state.selectedItem())"
+        class="absolute right-3 top-1/2 -translate-y-1/2
+               bg-black/40 backdrop-blur px-3 py-1 rounded-lg
+               hover:bg-black/60 transition"
+      >
+        ›
+      </button>
+    
+      <!-- INDICATOR DOTS -->
+    
+      <div class="flex justify-center gap-2 mt-3">
+    
+        <div
+          *ngFor="let shot of state.selectedItem()?.screenshots; let i = index"
+          class="w-2 h-2 rounded-full transition-all"
+          [ngClass]="i === currentShot ? 'bg-blue-400 scale-125' : 'bg-white/30'"
+        ></div>
+    
+      </div>
+    
+    </div>
+
+
+
+    <!-- TITLE -->
+
+    <h2 class="text-2xl font-semibold">
+      {{ state.selectedItem().title }}
+    </h2>
+
+
+    <!-- DESCRIPTION -->
+
+    <p class="opacity-80">
+      {{ state.selectedItem().details }}
+    </p>
+
+
+    <!-- TECH STACK -->
+
+    <div>
+
+      <h3 class="font-semibold mb-2">
+        Tech Stack
+      </h3>
+
+      <div class="flex flex-wrap gap-2">
+
+        <span
+          *ngFor="let tech of state.selectedItem().tech"
+          class="px-3 py-1 text-xs bg-white/10 border border-white/20 rounded-lg"
+        >
+          {{ tech }}
+        </span>
+
+      </div>
+
+      <div class="flex gap-3 mt-4">
+
+        <a
+          *ngIf="state.selectedItem()?.demo"
+          [href]="state.selectedItem()?.demo"
+          target="_blank"
+          class="px-4 py-2 text-sm rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition"
+        >
+          Live Demo
+        </a>
+      
+        <a
+          *ngIf="state.selectedItem()?.github"
+          [href]="state.selectedItem()?.github"
+          target="_blank"
+          class="px-4 py-2 text-sm rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition"
+        >
+          GitHub
+        </a>
+      
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
