@@ -1,171 +1,214 @@
 <div class="h-full backdrop-blur-xl bg-white/1 border border-white/20 rounded-2xl p-6 text-white shadow-2xl shadow-black/30 overflow-y-auto">
 
-  <div *ngIf="!state.selectedItem()" class="opacity-70">
-    </div>
-
-
-  <div *ngIf="state.selectedItem()" class="flex flex-col gap-6">
-
-    <!-- HERO IMAGE -->
-    <div class="rounded-xl overflow-hidden">
-
-      <img
-        [src]="state.selectedItem().image"
-        class="w-full h-48 object-cover"
-      />
-
-    </div>
-
-    <!-- SCREENSHOT CAROUSEL -->
-    <div *ngIf="state.selectedItem()?.screenshots" class="mt-4 relative group">
-
-
-      <img
-        [src]="state.selectedItem()?.screenshots[currentShot]"
-        class="w-full rounded-xl border border-white/20 transition-all duration-500"
-      />
-    
-      <!-- LEFT BUTTON -->
-    
-      <button
-        (click)="prevShot(state.selectedItem())"
-        class="absolute left-3 top-1/2 -translate-y-1/2
-               bg-black/40 backdrop-blur px-3 py-1 rounded-lg
-               hover:bg-black/60 transition"
-      >
-        ‹
-      </button>
-    
-      <!-- RIGHT BUTTON -->
-    
-      <button
-        (click)="nextShot(state.selectedItem())"
-        class="absolute right-3 top-1/2 -translate-y-1/2
-               bg-black/40 backdrop-blur px-3 py-1 rounded-lg
-               hover:bg-black/60 transition"
-      >
-        ›
-      </button>
-    
-      <!-- INDICATOR DOTS -->
-    
-      <div class="flex justify-center gap-2 mt-3">
-    
-        <div
-          *ngFor="let shot of state.selectedItem()?.screenshots; let i = index"
-          class="w-2 h-2 rounded-full transition-all"
-          [ngClass]="i === currentShot ? 'bg-blue-400 scale-125' : 'bg-white/30'"
-        ></div>
-    
-      </div>
-    
-    </div>
-
-
-
-    <!-- TITLE -->
-
-    <h2 class="text-2xl font-semibold">
-      {{ state.selectedItem().title }}
-    </h2>
-
-
-    <!-- DESCRIPTION -->
-
-    <p class="opacity-80">
-      {{ state.selectedItem().details }}
-    </p>
-
-
-    <!-- TECH STACK -->
-
-    <div>
-
-      <h3 class="font-semibold mb-2">
-        Tech Stack
-      </h3>
-
-      <div class="flex flex-wrap gap-2">
-
-        <span
-          *ngFor="let tech of state.selectedItem().tech"
-          class="px-3 py-1 text-xs bg-white/10 border border-white/20 rounded-lg"
-        >
-          {{ tech }}
-        </span>
-
-      </div>
-
-      <div class="flex gap-3 mt-4">
-
-        <a
-          *ngIf="state.selectedItem()?.demo"
-          [href]="state.selectedItem()?.demo"
-          target="_blank"
-          class="px-4 py-2 text-sm rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition"
-        >
-          Live Demo
-        </a>
-      
-        <a
-          *ngIf="state.selectedItem()?.github"
-          [href]="state.selectedItem()?.github"
-          target="_blank"
-          class="px-4 py-2 text-sm rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition"
-        >
-          GitHub
-        </a>
-      
-      </div>
-
-    </div>
-
+  <!-- EMPTY STATE -->
+  <div *ngIf="!state.selectedItem()" class="opacity-70"></div>
+  
+  
+  <!-- PROJECT DETAILS -->
+  <div *ngIf="state.selectedSection() === 'projects' && state.selectedItem()">
+  
+  <div class="rounded-xl overflow-hidden">
+  <img [src]="state.selectedItem().image" class="w-full h-48 object-cover"/>
   </div>
-
+  
+  <h2 class="text-2xl font-semibold mt-3">
+  {{ state.selectedItem().title }}
+  </h2>
+  
+  <p class="opacity-80 mt-2">
+  {{ state.selectedItem().details }}
+  </p>
+  
+  <div class="mt-4">
+  <h3 class="font-semibold mb-2">
+  Tech Stack
+  </h3>
+  
+  <div class="flex flex-wrap gap-2">
+  <span *ngFor="let tech of state.selectedItem().tech"
+  class="px-3 py-1 text-xs bg-white/10 border border-white/20 rounded-lg">
+  {{ tech }}
+  </span>
+  </div>
+  </div>
+  
+  
+  <div class="flex gap-3 mt-4">
+  
+  <a *ngIf="state.selectedItem()?.demo"
+  [href]="state.selectedItem()?.demo"
+  target="_blank"
+  class="px-4 py-2 text-sm rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition">
+  Live Demo
+  </a>
+  
+  <a *ngIf="state.selectedItem()?.github"
+  [href]="state.selectedItem()?.github"
+  target="_blank"
+  class="px-4 py-2 text-sm rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition">
+  GitHub
+  </a>
+  
+  </div>
+  
+  
+  <!-- SCREENSHOT CAROUSEL -->
+  <div *ngIf="state.selectedItem()?.screenshots" class="mt-4 relative group">
+  
+  <img [src]="state.selectedItem()?.screenshots[currentShot]"
+  class="w-full rounded-xl border border-white/20 transition-all duration-500"/>
+  
+  <button (click)="prevShot(state.selectedItem())"
+  class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur px-3 py-1 rounded-lg hover:bg-black/60 transition">
+  ‹
+  </button>
+  
+  <button (click)="nextShot(state.selectedItem())"
+  class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur px-3 py-1 rounded-lg hover:bg-black/60 transition">
+  ›
+  </button>
+  
+  <div class="flex justify-center gap-2 mt-3">
+  <div *ngFor="let shot of state.selectedItem()?.screenshots; let i=index"
+  class="w-2 h-2 rounded-full transition-all"
+  [ngClass]="i===currentShot?'bg-blue-400 scale-125':'bg-white/30'">
+  </div>
+  </div>
+  
+  </div>
+  
+  </div>
+  
+  
+  
+  <!-- BLOG DETAILS -->
+  <div *ngIf="state.selectedSection() === 'blogs' && state.selectedItem()">
+  
+  <div class="p-6 rounded-2xl bg-white/10 border border-white/20">
+  
+  <h2 class="text-2xl font-semibold mb-2">
+  {{ state.selectedItem().title }}
+  </h2>
+  
+  <p class="text-xs opacity-60 mb-4">
+  {{ state.selectedItem().date }}
+  </p>
+  
+  <div class="text-sm leading-relaxed opacity-90 whitespace-pre-line">
+  {{ state.selectedItem().content }}
+  </div>
+  
+  </div>
+  
+  </div>
+  
+  
+  
+  <!-- CONTACT FORM -->
   <div *ngIf="state.selectedSection() === 'contact'" class="fade-section">
-
-    <h2 class="text-lg font-semibold mb-4">
-      Send a Message
-    </h2>
   
-    <!-- CONTACT FORM -->
-    <form action="https://api.web3forms.com/submit" method="POST" class="flex flex-col gap-4">
+  <h2 class="text-lg font-semibold mb-4">
+  Send a Message
+  </h2>
   
-      <input type="hidden" name="access_key" value="67d0c720-af72-45aa-8bdd-ad341c6211ae">
+  <form #contactForm="ngForm"
+  (ngSubmit)="sendMessage(contactForm)"
+  class="flex flex-col gap-4">
   
-      <input
-        type="text"
-        name="name"
-        placeholder="Your Name"
-        required
-        class="contact-input"
-      >
   
-      <input
-        type="email"
-        name="email"
-        placeholder="Your Email"
-        required
-        class="contact-input"
-      >
+  <div>
+  <input type="text"
+  name="name"
+  ngModel
+  #name="ngModel"
+  required
+  placeholder="Your Name"
+  class="contact-input">
   
-      <textarea
-        name="message"
-        placeholder="Your Message"
-        rows="4"
-        required
-        class="contact-input"
-      ></textarea>
-
-      <input type="checkbox" name="botcheck" class="hidden">
-
-      <button
-        type="submit"
-        class="contact-btn">
-        Send Message
-      </button>
+  <p *ngIf="name.invalid && name.touched"
+  class="text-red-400 text-xs mt-1">
+  Name is required
+  </p>
+  </div>
   
-    </form>
+  
+  <div>
+  <input type="email"
+  name="email"
+  ngModel
+  #email="ngModel"
+  required
+  email
+  placeholder="Your Email"
+  class="contact-input">
+  
+  <p *ngIf="email.invalid && email.touched"
+  class="text-red-400 text-xs mt-1">
+  
+  <span *ngIf="email.errors?.['required']">
+  Email is required
+  </span>
+  
+  <span *ngIf="email.errors?.['email']">
+  Enter a valid email address
+  </span>
+  
+  </p>
+  </div>
+  
+  
+  <div>
+  <textarea name="message"
+  ngModel
+  #message="ngModel"
+  required
+  minlength="10"
+  rows="4"
+  placeholder="Your Message"
+  class="contact-input"></textarea>
+  
+  <p *ngIf="message.invalid && message.touched"
+  class="text-red-400 text-xs mt-1">
+  
+  <span *ngIf="message.errors?.['required']">
+  Message is required
+  </span>
+  
+  <span *ngIf="message.errors?.['minlength']">
+  Message must be at least 10 characters
+  </span>
+  
+  </p>
+  </div>
+  
+  
+  <button type="submit"
+  [disabled]="contactForm.invalid"
+  class="contact-btn disabled:opacity-50">
+  Send Message
+  </button>
+  
+  
+  <!-- SUCCESS POPUP -->
+  <div *ngIf="copied"
+  class="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
+  
+  <div class="popup-card">
+  
+  <div class="text-green-400 text-3xl mb-3">
+  ✔
+  </div>
+  
+  <h3 class="text-lg font-semibold">
+  {{ copyMessage }}
+  </h3>
   
   </div>
-</div>
+  
+  </div>
+  
+  </form>
+  
+  </div>
+  
+  </div>

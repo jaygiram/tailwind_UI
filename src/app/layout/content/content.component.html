@@ -9,7 +9,6 @@
   <!-- PROFILE SECTION -->
   <div *ngIf="state.selectedSection() === 'profile'" class="flex flex-col gap-6 fade-section">
 
-
     <!-- Profile Card -->
     <div class="p-6 rounded-2xl bg-white/10 border border-white/20">
 
@@ -29,7 +28,7 @@
         </div>
 
         <a href="assets/resume/jay-giram-resume.pdf" download
-          class="flex items-center gap-2 w-fit px-4 py-2 text-sm rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition">
+        class="ml-auto flex items-center gap-2 px-4 py-2 text-sm rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition">
           <i class="fa-solid fa-download"></i>
           Download Resume
         </a>
@@ -208,7 +207,30 @@
   <!-- BLOGS SECTION -->
 
   <div *ngIf="state.selectedSection() === 'blogs'" class="fade-section">
-    Blogs coming soon.
+
+    <div class="grid grid-cols-1 gap-4">
+  
+      <div
+        *ngFor="let blog of blogs"
+        (click)="openBlog(blog)"
+        class="p-4 rounded-xl bg-white/10 border border-white/20 cursor-pointer hover:bg-white/20 transition">
+  
+        <h3 class="text-lg font-semibold">
+          {{ blog.title }}
+        </h3>
+  
+        <p class="text-sm opacity-70 mb-2">
+          {{ blog.description }}
+        </p>
+  
+        <span class="text-xs opacity-50">
+          {{ blog.date }}
+        </span>
+  
+      </div>
+  
+    </div>
+  
   </div>
 
 
@@ -255,8 +277,7 @@
         Instagram
       </a>
 
-   
-
+  
       <!-- Pinterest -->
       <a href="https://pin.it/7iPaHZRUU" target="_blank" class="contact-item">
         <i class="fa-brands fa-pinterest"></i>
@@ -264,3 +285,16 @@
       </a>
 
   </div>
+
+  <!-- COPY TOAST POPUP -->
+<div *ngIf="copied"
+class="toast fixed top-6 left-1/2 -translate-x-1/2
+       px-5 py-2 rounded-lg
+       bg-white/10 backdrop-blur-xl border border-white/20
+       text-sm shadow-lg flex items-center gap-2">
+
+<span class="text-green-400">✔</span>
+{{ copyMessage }}
+
+</div>
+

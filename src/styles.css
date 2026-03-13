@@ -146,7 +146,7 @@ body{
 }
 
 .contact-input{
-  @apply px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-sm outline-none transition;
+  @apply w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-sm outline-none transition;
 }
 
 .contact-input:focus{
@@ -155,4 +155,46 @@ body{
 
 .contact-btn{
   @apply px-4 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 transition text-white font-medium;
+}
+
+.disabled\:opacity-50:disabled
+ {
+    opacity: 1.5 !important ;
+}
+@keyframes toastSlideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.toast{
+  animation: toastSlideDown 0.25s ease;
+  z-index: 9999;
+}
+.popup-card{
+  @apply bg-white/10 backdrop-blur-xl border border-white/20 
+  text-white rounded-xl shadow-xl 
+  flex flex-col items-center justify-center 
+  text-center p-8;
+  width: 260px;
+  height: 200px;
+}
+@keyframes popupScale {
+  from{
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to{
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.popup-card{
+  animation: popupScale 0.25s ease;
 }

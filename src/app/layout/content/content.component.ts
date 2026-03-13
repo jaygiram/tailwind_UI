@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PortfolioStateService } from '../../core/portfolio-state.service';
 import { PROJECTS } from '../../core/projects.data';
 import { FormsModule } from '@angular/forms';
+import { BLOGS } from '../../core/blogs.data';
 @Component({
   selector: 'app-content',
   standalone: true,
@@ -10,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './content.component.html'
 })
 export class ContentComponent implements OnInit {
-
+  blogs = BLOGS;
   projects = PROJECTS;
   searchText = "";
   copied = false;
@@ -116,14 +117,22 @@ export class ContentComponent implements OnInit {
 
   copyToClipboard(text: string, label: string) {
 
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(text).then(() => {
   
-    this.copyMessage = `${label} copied`;
-    this.copied = true;
+      this.copyMessage = `${label} copied`;
+      this.copied = true;
   
-    setTimeout(() => {
-      this.copied = false;
-    }, 2000);
+      setTimeout(() => {
+        this.copied = false;
+      }, 2000);
+  
+    });
   
   }
+
+openBlog(blog:any){
+  this.state.setItem(blog);
+}
+
+
 }
