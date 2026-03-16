@@ -1,0 +1,57 @@
+.lanyard-canvas {
+    width: 320px;
+    height: 420px;
+    margin: auto;
+  }
+
+  
+.lanyard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    perspective: 1200px;
+  }
+  
+  /* rope */
+  
+  .rope {
+    width: 2px;
+    height: 70px;
+    background: rgba(255,255,255,0.4);
+  }
+  
+  /* card */
+  
+  .card {
+  
+    width: 240px;
+    height: 300px;
+  
+    padding: 20px;
+  
+    border-radius: 20px;
+  
+    text-align: center;
+  
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px);
+  
+    border: 1px solid rgba(255,255,255,0.2);
+  
+    transform-style: preserve-3d;
+  
+    transition: transform 0.08s linear;
+  
+  }
+  
+  .avatar {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    margin-bottom: 12px;
+  }
+  
+  .company {
+    font-size: 13px;
+    opacity: 0.7;
+  }

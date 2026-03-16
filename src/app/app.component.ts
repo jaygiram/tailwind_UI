@@ -10,6 +10,6 @@ import { MainLayoutComponent } from "./layout/main-layout/main-layout.component"
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'jay-portfolio';
+  title = 'Jay Giram Web ';
   
 }

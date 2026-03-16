@@ -4,7 +4,22 @@
   <h2 class="text-lg font-semibold mb-4">
     {{ state.selectedSection() | titlecase }}
   </h2>
+<!-- HOME SECTION -->
 
+<!-- HOME SECTION -->
+
+<div *ngIf="state.selectedSection() === 'home'" class="flex justify-center items-center h-full">
+
+  <div class="hero-container">
+
+    <h2>Hi, I'm Jay</h2>
+    <p>UI Developer & Mendix Specialist</p>
+  
+    <app-hero-lanyard></app-hero-lanyard>
+  
+  </div>
+
+</div>
 
   <!-- PROFILE SECTION -->
   <div *ngIf="state.selectedSection() === 'profile'" class="flex flex-col gap-6 fade-section">
@@ -202,6 +217,8 @@
 
   </div>
 
+  
+
   <!-- PROJECTS SECTION -->
   <div *ngIf="state.selectedSection() === 'projects'">
 
@@ -376,3 +393,6 @@ class="toast fixed top-6 left-1/2 -translate-x-1/2
 
 </div>
 
+<h2 class="text-lg font-semibold mb-4">
+  {{ state.selectedSection() | titlecase }}
+</h2>

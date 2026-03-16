@@ -4,12 +4,15 @@ import { PortfolioStateService } from '../../core/portfolio-state.service';
 import { PROJECTS } from '../../core/projects.data';
 import { FormsModule } from '@angular/forms';
 import { BLOGS } from '../../core/blogs.data';
+import { HeroLanyardComponent } from '../hero-lanyard/hero-lanyard.component';
+
 @Component({
   selector: 'app-content',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HeroLanyardComponent],
   templateUrl: './content.component.html'
 })
+
 export class ContentComponent implements OnInit {
   blogs = BLOGS;
   projects = PROJECTS;
@@ -21,7 +24,7 @@ export class ContentComponent implements OnInit {
   openProject(project: any) {
  
     this.state.setItem(project);
-  
+
   }
 
   selectedFilter = 'All';
@@ -114,7 +117,6 @@ export class ContentComponent implements OnInit {
 
   }
 
-
   copyToClipboard(text: string, label: string) {
 
     navigator.clipboard.writeText(text).then(() => {
@@ -133,6 +135,5 @@ export class ContentComponent implements OnInit {
 openBlog(blog:any){
   this.state.setItem(blog);
 }
-
 
 }
