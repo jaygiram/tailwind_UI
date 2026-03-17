@@ -1,11 +1,6 @@
 <div
   class="h-full backdrop-blur-xl bg-white/1 border border-white/20 rounded-2xl p-6 text-white shadow-2xl shadow-black/30 overflow-y-auto">
 
-  <h2 class="text-lg font-semibold mb-4">
-    {{ state.selectedSection() | titlecase }}
-  </h2>
-<!-- HOME SECTION -->
-
 <!-- HOME SECTION -->
 
 <div *ngIf="state.selectedSection() === 'home'" class="flex justify-center h-full">
@@ -17,6 +12,11 @@
   </div>
 
 </div>
+
+  <h2 class="text-lg font-semibold mb-4">
+    {{ state.selectedSection() | titlecase }}
+  </h2>
+<!-- HOME SECTION -->
 
   <!-- PROFILE SECTION -->
   <div *ngIf="state.selectedSection() === 'profile'" class="flex flex-col gap-6 fade-section">
@@ -129,35 +129,7 @@
       </div>
       
       </div>
-    <!-- <div class="grid grid-cols-2 gap-4">
-
-      <div class="p-5 rounded-xl bg-white/10 border border-white/20">
-
-        <h3 class="font-semibold mb-2">
-          UI/UX Lead
-        </h3>
-
-        <p class="text-sm opacity-70">
-          Three M Software
-        </p>
-
-      </div>
-
-      <div class="p-5 rounded-xl bg-white/10 border border-white/20">
-
-        <h3 class="font-semibold mb-2">
-          Frontend Development
-        </h3>
-
-        <p class="text-sm opacity-70">
-          Angular • TypeScript • UI Systems
-        </p>
-
-      </div>
-
-    </div> -->
-
-
+   
     <div class="p-6 rounded-2xl bg-white/10 border border-white/20">
 
       <h3 class="text-lg font-semibold mb-4">
