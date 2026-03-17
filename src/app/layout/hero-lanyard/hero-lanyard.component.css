@@ -1,10 +1,14 @@
 .lanyard-canvas {
-    width: 320px;
-    height: 420px;
-    margin: auto;
+    width: 620px;
+    height: 620px;
+  }
+  
+  .lanyard-canvas canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
   }
 
-  
 .lanyard-container {
     display: flex;
     flex-direction: column;
@@ -55,3 +59,4 @@
     font-size: 13px;
     opacity: 0.7;
   }
+  
