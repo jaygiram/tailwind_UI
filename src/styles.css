@@ -61,7 +61,7 @@ app-root {
   background: var(--panel-bg);
   box-shadow: var(--panel-shadow);
   backdrop-filter: blur(20px);
-  overflow: hidden;
+  overflow: scroll;
 }
 
 .premium-panel::before {
