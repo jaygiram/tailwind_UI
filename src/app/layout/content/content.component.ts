@@ -21,6 +21,10 @@ export class ContentComponent implements OnInit {
   copyMessage = '';
   constructor(public state: PortfolioStateService) {}
 
+
+  get showTitle() {
+    return this.state.selectedSection()?.toLowerCase() !== 'home'
+  }
   openProject(project: any) {
  
     this.state.setItem(project);

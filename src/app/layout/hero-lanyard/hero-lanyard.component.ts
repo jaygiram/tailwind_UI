@@ -21,6 +21,7 @@ export class HeroLanyardComponent implements AfterViewInit {
   camera!: THREE.PerspectiveCamera
   renderer!: THREE.WebGLRenderer
   lanyardMaterial!: THREE.MeshStandardMaterial
+  triangle!: THREE.Mesh
   card!: THREE.Mesh
   cardGroup!: THREE.Group
   ropeLine!: THREE.Mesh
@@ -81,7 +82,7 @@ export class HeroLanyardComponent implements AfterViewInit {
 
     /* CARD */
 
-    const cardGeo = new THREE.BoxGeometry(2.4, 3.4, 0.04)
+    const cardGeo = new THREE.BoxGeometry(2.9, 3.4, 0.04)
 
     const texture = new THREE.TextureLoader().load(
       'assets/lanyard/card.png'
@@ -105,23 +106,25 @@ export class HeroLanyardComponent implements AfterViewInit {
     this.card = new THREE.Mesh(cardGeo, cardMat)
 
     this.cardGroup = new THREE.Group()
-
+    this.card.rotation.y = Math.PI
     this.cardGroup.add(this.card)
 
     // move card DOWN inside group so top becomes pivot
-    this.card.position.y = -1.4
+    this.card.position.set(0, -0.3, 0)
 
-    this.scene.add(this.cardGroup)
+    this.cardGroup.position.set(0, -1.2, 0.05)
 
     /* GLARE */
 
-    const glareGeo = new THREE.PlaneGeometry(1.7, 2.2)
+    const glareGeo = new THREE.PlaneGeometry(1.7, 2)
 
     const glareMat = new THREE.MeshBasicMaterial({
       color: 0xffffff,
       transparent: true,
-      opacity: 0.08,
+      opacity: 0.09,
       blending: THREE.AdditiveBlending
+
+
     })
 
     const glare = new THREE.Mesh(glareGeo, glareMat)
@@ -130,16 +133,51 @@ export class HeroLanyardComponent implements AfterViewInit {
     this.card.add(glare)
 
 
+    // 🔺 METAL TRIANGLE CONNECTOR
+
+    const triangleShape = new THREE.Shape()
+
+    triangleShape.moveTo(0, -0.3)      // 🔻 bottom tip
+    triangleShape.lineTo(-0.3, 0.25)   // left
+    triangleShape.lineTo(0.3, 0.25)    // right
+    triangleShape.lineTo(0, -0.3)      // close
+    const extrudeSettings = {
+      depth: 0.02,
+      bevelEnabled: true,
+      bevelThickness: 0.02,
+      bevelSize: 0.02,
+      bevelSegments: 2
+
+    }
+
+    const triangleGeo = new THREE.ShapeGeometry(triangleShape)
+
+    const metalMat = new THREE.MeshPhysicalMaterial({
+      color: 0xc0c0c0,
+      metalness: 1,
+      roughness: 0.25,
+      clearcoat: 1,
+      clearcoatRoughness: 0.1
+    })
+
+    this.triangle = new THREE.Mesh(triangleGeo, metalMat)
+    this.triangle.scale.set(0.7, 0.7, 0.7)
+
+    // add to scene
+    this.scene.add(this.triangle)
+    this.triangle.add(this.cardGroup)
+    this.triangle.rotation.z = Math.PI
+
   }
 
   initRope() {
 
     this.points = []
-  
+
     for (let i = 0; i <= this.segments; i++) {
-  
+
       const y = 2 - (i * this.segmentLength)
-  
+
       this.points.push({
         x: 0,
         y: y,
@@ -147,40 +185,45 @@ export class HeroLanyardComponent implements AfterViewInit {
         oldy: y
       })
     }
-  
+
     // ✅ CREATE FABRIC MATERIAL ONLY ONCE
     const loader = new THREE.TextureLoader()
 
     const texture = loader.load('assets/lanyard/lanyard-texture.png')
     const normalMap = loader.load('assets/lanyard/lanyard-normal.png')
-    
+
     texture.colorSpace = THREE.SRGBColorSpace
-    
+
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping
     normalMap.wrapS = normalMap.wrapT = THREE.RepeatWrapping
-    
+
     texture.repeat.set(1, 3)
     normalMap.repeat.set(1, 10)
-    
+
     this.lanyardMaterial = new THREE.MeshPhysicalMaterial({
       map: texture,
       normalMap: normalMap,
-    
+
       normalScale: new THREE.Vector2(0.35, 0.35),
-    
+
       roughness: 0.85,
       metalness: 0.05,
-    
+
       clearcoat: 0.3,
       clearcoatRoughness: 0.6,
-    
+
       sheen: 1,                     // 🔥 FABRIC MAGIC
       sheenRoughness: 0.8,
       sheenColor: new THREE.Color(0xffffff),
-    
+
       side: THREE.DoubleSide
-    
+
     })
+
+    const ambient = new THREE.AmbientLight(0xffffff, 0.6)
+    this.scene.add(ambient)
+
+
   }
 
   updateMouse(event: MouseEvent) {
@@ -277,78 +320,96 @@ export class HeroLanyardComponent implements AfterViewInit {
     }
 
   }
-  
+
   updateRopeMesh() {
 
     const vertices: number[] = []
     const uvs: number[] = []
-    const width = 0.18
-  
-    for (let i = 0; i < this.points.length; i++) {
-  
-      const p = this.points[i]
-      const next = this.points[i + 1] || p
-  
+
+    // slightly thinner = more realistic
+    const baseWidth = 0.14
+
+    const curve = new THREE.CatmullRomCurve3(
+      this.points.map(p => new THREE.Vector3(p.x, p.y, 0)),
+      false,
+      'catmullrom',
+      0.9
+    )
+
+    const smoothPoints = curve.getPoints(80)
+
+    for (let i = 0; i < smoothPoints.length; i++) {
+
+      const p = smoothPoints[i]
+      const next = smoothPoints[i + 1] || p
+
       const dx = next.x - p.x
       const dy = next.y - p.y
-  
+
       const angle = Math.atan2(dy, dx)
-  
-      const offsetX = Math.sin(angle) * width
-      const offsetY = -Math.cos(angle) * width
-  
+
+      // ✅ VERY SUBTLE natural twist (not animated)
+      const twist = Math.sin(i * 0.1) * 0.08
+
+      const normalAngle = angle + Math.PI / 2
+
+      // ✅ slight width variation (feels organic)
+      const width = baseWidth * (1 - i * 0.002)
+
+      const offsetX = Math.cos(normalAngle + twist) * width
+      const offsetY = Math.sin(normalAngle + twist) * width
+
+      // ✅ NO fake depth (keep flat, let lighting do work)
       vertices.push(
         p.x - offsetX, p.y - offsetY, 0,
         p.x + offsetX, p.y + offsetY, 0
       )
-  
-      const t = i / (this.points.length - 1)
+
+      const t = i / (smoothPoints.length - 1)
       uvs.push(0, t)
       uvs.push(1, t)
     }
-  
+
     const geometry = new THREE.BufferGeometry()
-  
+
     geometry.setAttribute(
       'position',
       new THREE.Float32BufferAttribute(vertices, 3)
     )
-  
+
     geometry.setAttribute(
       'uv',
       new THREE.Float32BufferAttribute(uvs, 2)
     )
-  
+
     const indices: number[] = []
-  
-    for (let i = 0; i < this.points.length - 1; i++) {
-  
+
+    for (let i = 0; i < smoothPoints.length - 1; i++) {
       const base = i * 2
-  
+
       indices.push(
         base, base + 1, base + 2,
         base + 1, base + 3, base + 2
       )
     }
-  
+
     geometry.setIndex(indices)
     geometry.computeVertexNormals()
-  
-    // ✅ CREATE MESH ONLY ONCE
+
     if (!this.ropeLine) {
-  
+
       this.ropeLine = new THREE.Mesh(geometry, this.lanyardMaterial)
       this.scene.add(this.ropeLine)
-  
+
     } else {
-  
+
       this.ropeLine.geometry.dispose()
       this.ropeLine.geometry = geometry
-  
+
     }
   }
 
-  
+
   animate = () => {
 
     requestAnimationFrame(this.animate)
@@ -362,45 +423,47 @@ export class HeroLanyardComponent implements AfterViewInit {
     this.updateCard()
 
     this.renderer.render(this.scene, this.camera)
-    
+
 
   }
-
   updateCard() {
 
     const last = this.points[this.points.length - 1]
     const prev = this.points[this.points.length - 2]
-  
-    const ropeSmooth = 0.2
-  
-    this.smoothedRopeX += (last.x - this.smoothedRopeX) * ropeSmooth
-    this.smoothedRopeY += (last.y - this.smoothedRopeY) * ropeSmooth
-  
-    const followSpeed = 0.1
-  
-    this.cardAnchorX += (this.smoothedRopeX - this.cardAnchorX) * followSpeed
-    this.cardAnchorY += (this.smoothedRopeY - this.cardAnchorY) * followSpeed
-  
-    this.cardGroup.position.set(last.x, last.y, 0.1)
-  
-    let ropeAngle = Math.atan2(
+
+    // 🔺 TRIANGLE (keep as is)
+    // 🔺 TRIANGLE (same)
+    this.triangle.position.set(last.x, last.y, 0.1)
+
+    const ropeAngle = Math.atan2(
       last.x - prev.x,
       last.y - prev.y
     )
-  
-    ropeAngle *= 0.001
-  
-    const stiffness = 0.08
-    const damping = 0.90
-  
-    const force = (ropeAngle - this.cardAngle) * stiffness
-  
+
+    // smooth follow (not direct copy)
+    const targetTriangleAngle = ropeAngle * 0.01
+
+    this.triangle.rotation.z += (targetTriangleAngle - this.triangle.rotation.z) * 0.01
+
+    // 🪪 CARD SWING (FIXED)
+
+    // reduce rope influence heavily
+    const targetAngle = THREE.MathUtils.clamp(ropeAngle * 0.25, -0.35, 0.35)
+
+    // smoother + heavier feel
+    const stiffness = 0.035
+    const damping = 0.94
+
+    const force = (targetAngle - this.cardAngle) * stiffness
+
     this.cardVelocity += force
     this.cardVelocity *= damping
-  
+
     this.cardAngle += this.cardVelocity
-  
-    this.cardGroup.rotation.z = -this.cardAngle
-    this.cardGroup.rotation.x = 0.06
+
+    // apply rotation
+    // keep physics but reduce impact
+    this.cardGroup.rotation.z = -this.cardAngle * 0.15
+    this.cardGroup.rotation.x = 0.02
   }
 }
