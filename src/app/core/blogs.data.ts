@@ -2,32 +2,34 @@ export const BLOGS = [
     {
       id: 1,
       title: "Design Systems in Mendix",
-      description: "How to create scalable UI components in Mendix.",
+      description: "A practical approach to reusable low-code UI foundations.",
       date: "2026",
       content: `
-      In this article I explain how to build reusable UI systems
-      in Mendix using design tokens, consistent spacing,
-      and scalable layout structures.
+      This piece breaks down how I approach reusable components in Mendix.
+      The focus is on design tokens, spacing rules, shared interaction patterns,
+      and the tradeoffs that appear when design systems meet low-code delivery.
       `
     },
     {
       id: 2,
       title: "Building Custom Angular Widgets",
-      description: "Step-by-step guide to creating Mendix pluggable widgets.",
+      description: "Lessons from shipping framework-driven widgets into product environments.",
       date: "2026",
       content: `
-      This guide explains how I created a custom pluggable widget
-      using Angular, TypeScript and Mendix tooling.
+      I walk through the architecture decisions behind a custom widget:
+      how to keep the API small, how to design for maintainability,
+      and how to balance implementation freedom with platform rules.
       `
     },
     {
       id: 3,
       title: "Designing Glass UI Dashboards",
-      description: "Modern glassmorphism dashboards with Angular.",
+      description: "Using motion and depth carefully instead of relying on visuals alone.",
       date: "2026",
       content: `
-      Glass UI is becoming popular for modern dashboards.
-      Here I show how to implement it cleanly using Tailwind.
+      Glass UI can feel polished or distracting depending on how it is used.
+      This article covers contrast, layering, motion restraint,
+      and the small decisions that make a visual concept feel intentional.
       `
     }
   ];

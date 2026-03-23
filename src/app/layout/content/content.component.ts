@@ -1,143 +1,122 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { PortfolioStateService } from '../../core/portfolio-state.service';
 import { PROJECTS } from '../../core/projects.data';
-import { FormsModule } from '@angular/forms';
 import { BLOGS } from '../../core/blogs.data';
-import { HeroLanyardComponent } from '../hero-lanyard/hero-lanyard.component';
 
 @Component({
   selector: 'app-content',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeroLanyardComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './content.component.html'
 })
-
 export class ContentComponent implements OnInit {
   blogs = BLOGS;
   projects = PROJECTS;
-  searchText = "";
+  searchText = '';
   copied = false;
   copyMessage = '';
-  constructor(public state: PortfolioStateService) {}
-
-
-  get showTitle() {
-    return this.state.selectedSection()?.toLowerCase() !== 'home'
-  }
-  openProject(project: any) {
- 
-    this.state.setItem(project);
-
-  }
-
   selectedFilter = 'All';
-
-  setFilter(filter: string){
-    this.selectedFilter = filter;
-  }
-  
-  get filteredProjects(){
-
-    let filtered = this.projects;
-  
-    if(this.searchText){
-      filtered = filtered.filter(project =>
-        project.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        project.description.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        project.tech.some(t =>
-          t.toLowerCase().includes(this.searchText.toLowerCase())
-        )
-      );
-    }
-  
-    if(this.selectedFilter !== "All"){
-      filtered = filtered.filter(project =>
-        project.tech.includes(this.selectedFilter)
-      );
-    }
-  
-    return filtered;
-  
-  }
+  readonly featuredProject = this.projects[0];
 
   roles = [
-    "UI/UX Lead",
-    "Mendix Developer",
-    "Frontend Engineer"
+    'UI/UX Lead',
+    'Mendix Developer',
+    'Frontend Engineer'
   ];
-  
-  currentRole = "";
+
+  currentRole = '';
   roleIndex = 0;
   charIndex = 0;
 
   skills = [
-    { name: "Mendix", level: 95, width: 0 },
-    { name: "Figma", level: 85, width: 0 },
-    { name: "HTML", level: 80, width: 0 },
-    { name: "CSS", level: 80, width: 0 },
-    { name: "UI/UX", level: 90, width: 0 },
-    { name: "Canva", level: 70, width: 0 }
+    { name: 'Mendix', level: 95, width: 0 },
+    { name: 'Figma', level: 85, width: 0 },
+    { name: 'HTML', level: 80, width: 0 },
+    { name: 'CSS', level: 80, width: 0 },
+    { name: 'UI/UX', level: 90, width: 0 },
+    { name: 'Canva', level: 70, width: 0 }
   ];
 
-  ngOnInit() {
+  constructor(public state: PortfolioStateService) {}
 
-    // Start typewriter
+  get showTitle() {
+    return this.state.selectedSection()?.toLowerCase() !== 'home';
+  }
+
+  get filteredProjects() {
+    let filtered = this.projects;
+
+    if (this.searchText) {
+      filtered = filtered.filter(project =>
+        project.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        project.description.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        project.tech.some(t => t.toLowerCase().includes(this.searchText.toLowerCase()))
+      );
+    }
+
+    if (this.selectedFilter !== 'All') {
+      filtered = filtered.filter(project => project.tech.includes(this.selectedFilter));
+    }
+
+    return filtered;
+  }
+
+  ngOnInit() {
     this.typeEffect();
 
-    // Animate skill bars
     setTimeout(() => {
       this.skills.forEach(skill => {
         skill.width = skill.level;
       });
     }, 300);
+  }
 
+  openProject(project: any) {
+    this.state.setItem(project);
+  }
+
+  setFilter(filter: string) {
+    this.selectedFilter = filter;
   }
 
   typeEffect() {
-
     const currentText = this.roles[this.roleIndex];
 
     if (this.charIndex < currentText.length) {
-
       this.currentRole += currentText.charAt(this.charIndex);
       this.charIndex++;
 
       setTimeout(() => this.typeEffect(), 70);
-
-    } else {
-
-      setTimeout(() => {
-
-        this.currentRole = "";
-        this.charIndex = 0;
-        this.roleIndex = (this.roleIndex + 1) % this.roles.length;
-
-        this.typeEffect();
-
-      }, 1500);
-
+      return;
     }
 
+    setTimeout(() => {
+      this.currentRole = '';
+      this.charIndex = 0;
+      this.roleIndex = (this.roleIndex + 1) % this.roles.length;
+      this.typeEffect();
+    }, 1500);
   }
 
   copyToClipboard(text: string, label: string) {
-
     navigator.clipboard.writeText(text).then(() => {
-  
       this.copyMessage = `${label} copied`;
       this.copied = true;
-  
+
       setTimeout(() => {
         this.copied = false;
       }, 2000);
-  
     });
-  
   }
 
-openBlog(blog:any){
-  this.state.setItem(blog);
-}
+  openBlog(blog: any) {
+    this.state.setItem(blog);
+  }
 
+  viewFeaturedProject() {
+    this.state.setSection('projects');
+    this.state.setItem(this.featuredProject);
+  }
 }

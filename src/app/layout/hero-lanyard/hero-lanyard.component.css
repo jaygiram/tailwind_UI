@@ -1,62 +1,54 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
 .lanyard-canvas {
-    width: 620px;
-    height: 620px;
-  }
-  
-  .lanyard-canvas canvas {
-    width: 100% !important;
-    height: 100% !important;
-    display: block;
-  }
+  width: min(100%, 520px);
+  height: min(32rem, 60vh);
+  min-height: 340px;
+  margin-inline: auto;
+}
+
+.lanyard-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
 
 .lanyard-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    perspective: 1200px;
-  }
-  
-  /* rope */
-  
-  .rope {
-    width:15px;
-    height: 70px;
-    background: rgba(255, 255, 255, 0.4);
-  }
-  
-  /* card */
-  
-  .card {
-  
-    width: 240px;
-    height: 300px;
-  
-   /* padding: 20px; */
-  
-    border-radius: 20px;
-  
-    text-align: center;
-  
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: blur(12px);
-  
-    border: 1px solid rgba(255,255,255,0.2);
-  
-    transform-style: preserve-3d;
-  
-    transition: transform 0.08s linear;
-  
-  }
-  
-  .avatar {
-    width: 85px;
-    height: 85px;
-    border-radius: 50%;
-    margin-bottom: 12px;
-  }
-  
-  .company {
-    font-size: 13px;
-    opacity: 0.7;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  perspective: 1200px;
+}
+
+.rope {
+  width: 15px;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.card {
+  width: 240px;
+  height: 300px;
+  border-radius: 20px;
+  text-align: center;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.2);
+  transform-style: preserve-3d;
+  transition: transform 0.08s linear;
+}
+
+.avatar {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  margin-bottom: 12px;
+}
+
+.company {
+  font-size: 13px;
+  opacity: 0.7;
+}

@@ -1,367 +1,248 @@
-<div
-  class="h-full backdrop-blur-xl bg-white/1 border border-white/20 rounded-2xl p-6 text-white shadow-2xl shadow-black/30 overflow-y-auto">
+<div class="premium-panel content-shell h-full overflow-y-auto p-5 text-white lg:p-7">
 
-<!-- HOME SECTION -->
+  <div *ngIf="state.selectedSection() === 'home'" class="fade-section flex h-full flex-col gap-6">
+    <div class="grid items-start gap-7">
+      <div>
+        <p class="eyebrow text-cyan-200/80">Frontend Portfolio</p>
+        <h2 class="hero-title mt-4 max-w-4xl text-5xl leading-[0.94] sm:text-6xl">
+          Designing clean interfaces with product thinking.
+        </h2>
+        <p class="mt-5 max-w-3xl text-base leading-8 text-white/76">
+          This space highlights UI work across Angular, Mendix, design systems, and interactive concepts.
+          The goal is simple: clear structure, thoughtful motion, and interfaces that feel easy to use.
+        </p>
 
-<div *ngIf="state.selectedSection() === 'home'" class="flex justify-center h-full">
+        <div class="mt-6 flex flex-wrap gap-3">
+          <button type="button" (click)="viewFeaturedProject()" class="cta-primary">
+            View Featured Project
+          </button>
+          <button type="button" (click)="state.setSection('contact')" class="cta-secondary">
+            Contact Me
+          </button>
+        </div>
 
-  <div class="hero-container">  
-    
-    <app-hero-lanyard></app-hero-lanyard>
-  
+        <div class="mt-8 grid gap-3 sm:grid-cols-3">
+          <div class="feature-card p-5">
+            <p class="eyebrow text-white/45">Focus</p>
+            <p class="mt-3 text-base leading-7 text-white/88">UI systems, dashboard UX, and frontend polish.</p>
+          </div>
+          <div class="feature-card p-5">
+            <p class="eyebrow text-white/45">Stack</p>
+            <p class="mt-3 text-base leading-7 text-white/88">Angular, Tailwind, TypeScript, Mendix.</p>
+          </div>
+          <div class="feature-card p-5">
+            <p class="eyebrow text-white/45">Approach</p>
+            <p class="mt-3 text-base leading-7 text-white/88">Design-led implementation with production-minded details.</p>
+          </div>
+        </div>
+
+        <div class="highlight-panel mt-8 p-6">
+          <p class="eyebrow text-white/42">Preview</p>
+          <p class="mt-4 max-w-2xl text-base leading-8 text-white/74">
+            Use the left panel to explore profile, projects, and writing. The right panel acts like a live viewer:
+            the interactive ID card appears by default and transforms into a focused case-study detail view when you select something.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 
-</div>
+  <h2 *ngIf="showTitle" class="section-heading mb-5">
+    {{ state.selectedSection() | titlecase }}
+  </h2>
 
-<h2 *ngIf="showTitle" class="text-lg font-semibold mb-4">
-  {{ state.selectedSection() | titlecase }}
-</h2>
-<!-- HOME SECTION -->
-
-  <!-- PROFILE SECTION -->
-  <div *ngIf="state.selectedSection() === 'profile'" class="flex flex-col gap-6 fade-section">
-
-    <!-- Profile Card -->
-    <div class="p-6 rounded-2xl bg-white/10 border border-white/20">
-
-      <div class="flex items-center gap-4">
-
-        <img src="assets/profile.png" class="w-14 h-14 rounded-full border border-white/30" />
+  <div *ngIf="state.selectedSection() === 'profile'" class="fade-section flex flex-col gap-6">
+    <div class="feature-card p-6">
+      <div class="flex flex-wrap items-center gap-4">
+        <img src="assets/profile.png" class="h-16 w-16 rounded-full border border-white/30 object-cover shadow-lg shadow-black/30" alt="Jay Giram profile" />
 
         <div>
-          <h2 class="text-xl font-semibold">
-            Jay Giram
-          </h2>
-
-          <p class="text-sm opacity-80 mt-1 h-6 flex items-center">
+          <h2 class="text-2xl font-semibold">Jay Giram</h2>
+          <p class="mt-1 flex h-6 items-center text-sm tracking-wide text-white/72">
             {{ currentRole }}
-            <span class="ml-1 cursor">|</span>
+            <span class="cursor ml-1">|</span>
           </p>
         </div>
 
-        <a href="assets/resume/jay-giram-resume.pdf" download
-        class="ml-auto flex items-center gap-2 px-4 py-2 text-sm rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition">
-          <i class="fa-solid fa-download"></i>
-          Download Resume
-        </a>
-
+        <button type="button" (click)="state.setSection('contact')" class="cta-secondary ml-auto">
+          <i class="fa-solid fa-paper-plane"></i>
+          Request Resume
+        </button>
       </div>
     </div>
 
-    <!-- Experience Cards -->
-    <div class="p-6 rounded-2xl bg-white/10 border border-white/20">
+    <div class="feature-card p-6">
+      <h3 class="mb-6 text-lg font-semibold">Experience</h3>
 
-      <h3 class="text-lg font-semibold mb-6">
-      Experience
-      </h3>
-      
       <div class="timeline">
-      
-      <div class="timeline-item">
-      
-      <div class="timeline-dot"></div>
-      
-      <div class="timeline-card">
-      
-      <p class="timeline-year">
-      2025 — Present
-      </p>
-      
-      <h4>
-        UI/UX Lead • Mendix
-        <span class="current-role">Current</span>
-        </h4>
-      
-      <p class="timeline-company">
-      Three M Software Pvt Ltd
-      </p>
-      
-      </div>
-      
-      </div>
-      
-      
-      <div class="timeline-item">
-      
-      <div class="timeline-dot"></div>
-      
-      <div class="timeline-card">
-      
-      <p class="timeline-year">
-      2024
-      </p>
-      
-      <h4>
-      UI/UX Developer
-      </h4>
-      
-      <p class="timeline-company">
-      Three M Software Pvt Ltd
-      </p>
-      
-      </div>
-      
-      </div>
-      
-      
-      <div class="timeline-item">
-      
-      <div class="timeline-dot"></div>
-      
-      <div class="timeline-card">
-      
-      <p class="timeline-year">
-      2023
-      </p>
-      
-      <h4>
-      Angular Developer
-      </h4>
-      
-      <p class="timeline-company">
-      Cognopi Solutions Pvt Ltd
-      </p>
-      
-      </div>
-      
-      </div>
-      
-      </div>
-      
-      </div>
-   
-    <div class="p-6 rounded-2xl bg-white/10 border border-white/20">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <p class="timeline-year">2025 - Present</p>
+            <h4>
+              UI/UX Lead | Mendix
+              <span class="current-role">Current</span>
+            </h4>
+            <p class="timeline-company">Three M Software Pvt Ltd</p>
+          </div>
+        </div>
 
-      <h3 class="text-lg font-semibold mb-4">
-        Core Skills
-      </h3>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <p class="timeline-year">2024</p>
+            <h4>UI/UX Developer</h4>
+            <p class="timeline-company">Three M Software Pvt Ltd</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <p class="timeline-year">2023</p>
+            <h4>Angular Developer</h4>
+            <p class="timeline-company">Cognopi Solutions Pvt Ltd</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-card p-6">
+      <h3 class="mb-4 text-lg font-semibold">Core Skills</h3>
 
       <div class="grid grid-cols-2 gap-3">
-
         <div class="skill-card">
           <i class="fa-brands fa-angular text-red-500"></i>
           Angular
         </div>
-
         <div class="skill-card">
           <i class="fa-brands fa-js text-yellow-400"></i>
           TypeScript
         </div>
-
         <div class="skill-card">
           <i class="fa-solid fa-layer-group text-blue-400"></i>
           UI Systems
         </div>
-
         <div class="skill-card">
-          <i class="fa-solid fa-magnifying-glass text-purple-400"></i>
+          <i class="fa-solid fa-magnifying-glass text-violet-300"></i>
           UX Research
         </div>
-
         <div class="skill-card">
           <i class="fa-solid fa-wind text-cyan-400"></i>
           Tailwind
         </div>
-
         <div class="skill-card">
           <i class="fa-brands fa-figma text-pink-400"></i>
           Figma
         </div>
-
         <div class="skill-card">
-          <img src="assets/icons/mendix.svg" class="w-4 h-4" />
+          <img src="assets/icons/mendix.svg" class="h-4 w-4" alt="Mendix" />
           Mendix
         </div>
-
         <div class="skill-card">
           <i class="fa-brands fa-git-alt text-orange-500"></i>
           Git
         </div>
-
-
-
       </div>
-
     </div>
-
   </div>
 
-  
-
-  <!-- PROJECTS SECTION -->
-  <div *ngIf="state.selectedSection() === 'projects'">
-
-    <!-- FILTER BUTTONS -->
-
-    <div class="flex gap-2 mb-4">
-
-      <button (click)="selectedFilter='All'" class="filter-btn"
-        [ngClass]="selectedFilter === 'All' ? 'active-filter' : ''">
-        All
-      </button>
-
-      <button (click)="selectedFilter='Angular'" class="filter-btn"
-        [ngClass]="selectedFilter === 'Angular' ? 'active-filter' : ''">
-        Angular
-      </button>
-
-      <button (click)="selectedFilter='Mendix'" class="filter-btn"
-        [ngClass]="selectedFilter === 'Mendix' ? 'active-filter' : ''">
-        Mendix
-      </button>
-
-      <button (click)="selectedFilter='UI/UX'" class="filter-btn"
-        [ngClass]="selectedFilter === 'UI/UX' ? 'active-filter' : ''">
-        UI/UX
-      </button>
-
+  <div *ngIf="state.selectedSection() === 'projects'" class="fade-section">
+    <div class="mb-4 flex flex-wrap gap-2">
+      <button (click)="setFilter('All')" class="filter-btn" [ngClass]="selectedFilter === 'All' ? 'active-filter' : ''">All</button>
+      <button (click)="setFilter('Angular')" class="filter-btn" [ngClass]="selectedFilter === 'Angular' ? 'active-filter' : ''">Angular</button>
+      <button (click)="setFilter('Mendix')" class="filter-btn" [ngClass]="selectedFilter === 'Mendix' ? 'active-filter' : ''">Mendix</button>
+      <button (click)="setFilter('UI/UX')" class="filter-btn" [ngClass]="selectedFilter === 'UI/UX' ? 'active-filter' : ''">UI/UX</button>
     </div>
 
-    <!-- PROJECT GRID -->
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-      <div *ngFor="let project of filteredProjects" (click)="openProject(project)"
-        class="group rounded-xl overflow-hidden border cursor-pointer transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-1"
-        [ngClass]="
-          state.selectedItem()?.id === project.id
-            ? 'bg-white/20 border-blue-400'
-            : 'bg-white/10 border-white/20 hover:bg-white/20'
-        ">
-
-        <!-- IMAGE -->
-
-        <div class="relative overflow-hidden rounded-t-xl group">
-          <img [src]="project.image"
-            class="w-full h-32 object-cover transition-transform duration-500 group-hover:scale-110" />
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div
+        *ngFor="let project of filteredProjects"
+        (click)="openProject(project)"
+        class="project-card group cursor-pointer overflow-hidden rounded-[1.6rem] border transition-all duration-500"
+        [ngClass]="state.selectedItem()?.id === project.id ? 'border-cyan-300/60 bg-white/16 shadow-[0_28px_80px_rgba(64,184,217,0.16)]' : 'border-white/12 bg-white/8 hover:-translate-y-1 hover:border-white/25 hover:bg-white/14'">
+        <div class="group relative overflow-hidden rounded-t-[1.6rem]">
+          <img [src]="project.image" [alt]="project.title" class="h-40 w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <div class="project-overlay"></div>
           <div class="shine"></div>
         </div>
 
-        <!-- CONTENT -->
+        <div class="p-5">
+          <div class="mb-3 flex items-center justify-between gap-3">
+            <span class="eyebrow text-white/42">Case Study</span>
+            <span class="text-xs text-cyan-100/80">Open details</span>
+          </div>
+          <h3 class="text-xl font-semibold leading-tight">{{ project.title }}</h3>
+          <p class="mb-4 mt-3 text-sm leading-7 text-white/74">{{ project.description }}</p>
 
-        <div class="p-4">
-
-          <h3 class="text-lg font-semibold">
-            {{ project.title }}
-          </h3>
-
-          <p class="text-sm opacity-80 mb-3">
-            {{ project.description }}
-          </p>
-
-          <!-- TECH BADGES -->
-
-          <div class="flex flex-wrap gap-2 mt-2">
-
-            <span *ngFor="let tech of project.tech"
-              class="px-2 py-1 text-xs rounded-md bg-white/20 border border-white/30 text-white">
+          <div class="mt-2 flex flex-wrap gap-2">
+            <span *ngFor="let tech of project.tech" class="rounded-full border border-white/18 bg-white/12 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-white/82">
               {{ tech }}
             </span>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   </div>
-
-  <!-- BLOGS SECTION -->
 
   <div *ngIf="state.selectedSection() === 'blogs'" class="fade-section">
-
     <div class="grid grid-cols-1 gap-4">
-  
-      <div
-        *ngFor="let blog of blogs"
-        (click)="openBlog(blog)"
-        class="p-4 rounded-xl bg-white/10 border border-white/20 cursor-pointer hover:bg-white/20 transition">
-  
-        <h3 class="text-lg font-semibold">
-          {{ blog.title }}
-        </h3>
-  
-        <p class="text-sm opacity-70 mb-2">
-          {{ blog.description }}
-        </p>
-  
-        <span class="text-xs opacity-50">
-          {{ blog.date }}
-        </span>
-  
+      <div *ngFor="let blog of blogs" (click)="openBlog(blog)" class="feature-card cursor-pointer p-5 transition duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/16">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="eyebrow text-white/42">Article</p>
+            <h3 class="mt-3 text-xl font-semibold leading-tight">{{ blog.title }}</h3>
+            <p class="mb-2 mt-3 max-w-2xl text-sm leading-7 text-white/72">{{ blog.description }}</p>
+          </div>
+          <span class="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/60">{{ blog.date }}</span>
+        </div>
       </div>
-  
     </div>
-  
   </div>
 
-
-  <!-- CONTACT SECTION -->
   <div *ngIf="state.selectedSection() === 'contact'" class="fade-section">
-
-    <div class="flex flex-col gap-4 mt-2">
-
-      <!-- Email -->
+    <div class="mt-2 flex flex-col gap-4">
       <div class="contact-item cursor-pointer" (click)="copyToClipboard('jaysudhirgiram@email.com','Email')">
         <i class="fa-solid fa-envelope"></i>
         Email
         <span class="ml-auto text-xs opacity-60">click to copy</span>
       </div>
 
-      <!-- Phone -->
-      <div class="contact-item cursor-pointer"(click)="copyToClipboard('+919637102111','Phone')">
+      <div class="contact-item cursor-pointer" (click)="copyToClipboard('+919637102111','Phone')">
         <i class="fa-solid fa-phone"></i>
         Phone
         <span class="ml-auto text-xs opacity-60">click to copy</span>
       </div>
 
-      <!-- LinkedIn -->
-      <a href="https://www.linkedin.com/in/jaygiram08" target="_blank" class="contact-item">
+      <a href="https://www.linkedin.com/in/jaygiram08" target="_blank" rel="noreferrer" class="contact-item">
         <i class="fa-brands fa-linkedin"></i>
         LinkedIn
       </a>
 
-      <!-- GitHub -->
-      <a href="https://github.com/jaygiram" target="_blank" class="contact-item">
+      <a href="https://github.com/jaygiram" target="_blank" rel="noreferrer" class="contact-item">
         <i class="fa-brands fa-github"></i>
         GitHub
       </a>
 
-         <!-- Figma -->
-         <a href="https://www.figma.com/@jaygiram" target="_blank" class="contact-item">
-          <i class="fa-brands fa-figma"></i>
-          Figma
-        </a>
+      <a href="https://www.figma.com/@jaygiram" target="_blank" rel="noreferrer" class="contact-item">
+        <i class="fa-brands fa-figma"></i>
+        Figma
+      </a>
 
-      <!-- Instagram -->
-      <a href="https://www.instagram.com/jay_giram/" target="_blank" class="contact-item">
+      <a href="https://www.instagram.com/jay_giram/" target="_blank" rel="noreferrer" class="contact-item">
         <i class="fa-brands fa-instagram"></i>
         Instagram
       </a>
 
-  
-      <!-- Pinterest -->
-      <a href="https://pin.it/7iPaHZRUU" target="_blank" class="contact-item">
+      <a href="https://pin.it/7iPaHZRUU" target="_blank" rel="noreferrer" class="contact-item">
         <i class="fa-brands fa-pinterest"></i>
         Pinterest
       </a>
+    </div>
 
+    <div *ngIf="copied" class="toast fixed left-1/2 top-6 flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/20 bg-black/25 px-5 py-2 text-sm shadow-lg backdrop-blur-xl">
+      <span class="text-green-400">OK</span>
+      {{ copyMessage }}
+    </div>
   </div>
-
-  <!-- COPY TOAST POPUP -->
-<div *ngIf="copied"
-class="toast fixed top-6 left-1/2 -translate-x-1/2
-       px-5 py-2 rounded-lg
-       bg-white/10 backdrop-blur-xl border border-white/20
-       text-sm shadow-lg flex items-center gap-2">
-
-<span class="text-green-400">✔</span>
-{{ copyMessage }}
-
 </div>
-
-<h2 class="text-lg font-semibold mb-4">
-  {{ state.selectedSection() | titlecase }}
-</h2>
