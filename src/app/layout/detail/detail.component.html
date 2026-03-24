@@ -1,4 +1,4 @@
-<div class="premium-panel detail-shell h-full overflow-y-auto p-5 text-white lg:p-7">
+<div class="premium-panel h-full p-5 text-white lg:p-7">
 
   <div *ngIf="
       (state.selectedSection() === 'home' && !state.selectedItem()) ||
@@ -30,7 +30,7 @@
           </ng-container>
         </p>
       </div>
-      <div class="status-pill hidden sm:block">Live Viewer</div>
+
     </div>
 
     <div class="flex min-h-[26rem] flex-1 items-center justify-center">
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div *ngIf="state.selectedSection() === 'profile'" class="fade-section feature-card p-6">
+  <div *ngIf="state.selectedSection() === 'profile'" class="fade-section feature-card p-6  ">
     <p class="eyebrow text-white/45">Profile Snapshot</p>
     <h2 class="section-heading mt-4 !text-3xl">Design-led frontend builder.</h2>
     <p class="mt-4 text-base leading-8 text-white/76">
@@ -62,8 +62,8 @@
     </div>
   </div>
 
-  <div *ngIf="state.selectedSection() === 'projects' && state.selectedItem()" class="fade-section">
-    <div class="overflow-hidden rounded-[1.7rem] border border-white/12">
+  <div *ngIf="state.selectedSection() === 'projects' && state.selectedItem()" class="fade-section ">
+    <div class="overflow-hidden rounded-[1.7rem] border border-white/12 ">
       <img [src]="state.selectedItem().image" [alt]="state.selectedItem().title" class="h-56 w-full object-cover" />
     </div>
 

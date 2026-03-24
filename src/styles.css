@@ -61,17 +61,7 @@ app-root {
   background: var(--panel-bg);
   box-shadow: var(--panel-shadow);
   backdrop-filter: blur(20px);
-  overflow: scroll;
-}
-
-.premium-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at top, rgba(255,255,255,0.14), transparent 34%),
-    linear-gradient(135deg, rgba(255,255,255,0.08), transparent 40%);
-  pointer-events: none;
+  overflow: hidden;
 }
 
 .nav-shell::after,
@@ -468,6 +458,8 @@ app-root {
 .nav-shell,
 .content-shell,
 .detail-shell {
+  overflow-x: hidden;
+  overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -486,5 +478,19 @@ app-root {
 
   .premium-panel {
     border-radius: 1.6rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .sm\:text-6xl {
+      font-size: 2.75rem !important;
+      line-height: 1.3 !important;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  .lg\:w-\[18rem\] {
+      width: 20rem !important;
   }
 }
